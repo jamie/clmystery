@@ -1,0 +1,185 @@
+% catline () {
+function> tail -n +$2 $1 | head -n 1
+function> }
+
+% ack CLUE crimescene
+CLUE: Footage from an ATM security camera is blurry but shows that the perpetrator is a tall male, at least 6'.
+CLUE: Found a wallet believed to belong to the killer: no ID, just loose change, and membership cards for AAA, Delta SkyMiles, the local library, and the Museum of Bash History. The cards are totally untraceable and have no name, for some reason.
+CLUE: Questioned the barista at the local coffee shop. He said a woman left right before they heard the shots. The name on her latte was Annabel, she had blond spiky hair and a New Zealand accent.
+
+% ack Annabel people
+Annabel Sun F 26  Hart Place, line 40
+Oluwasegun Annabel  M 37  Mattapan Street, line 173
+Annabel Church  F 38  Buckingham Place, line 179
+Annabel Fuglsang  M 40  Haley Street, line 176
+
+% catline streets/Hart_Place 40
+SEE INTERVIEW #47246024
+
+% cat interviews/interview-47246024
+Ms. Sun has brown hair and is not from New Zealand.  Not the witness from the cafe.
+
+% catline streets/Buckingham_Place 179
+SEE INTERVIEW #699607
+
+% cat interviews/interview-699607
+Interviewed Ms. Church at 2:04 pm.  Witness stated that she did not see anyone she could identify as the shooter, that she ran away as soon as the shots were fired.
+
+However, she reports seeing the car that fled the scene.  Describes it as a blue Honda, with a license plate that starts with "L337" and ends with "9"
+
+% ack 'L337.*9' -A5 vehicles
+License Plate L337ZR9
+Make: Honda
+Color: Red
+Owner: Katie Park
+Height: 6'2"
+Weight: 189 lbs
+--
+License Plate L337P89
+Make: Honda
+Color: Teal
+Owner: Mike Bostock
+Height: 6'4"
+Weight: 173 lbs
+--
+License Plate L337GX9
+Make: Mazda
+Color: Orange
+Owner: John Keefe
+Height: 6'4"
+Weight: 185 lbs
+--
+License Plate L337QE9
+Make: Honda
+Color: Blue
+Owner: Erika Owens
+Height: 6'5"
+Weight: 220 lbs
+--
+License Plate L337GB9
+Make: Toyota
+Color: Blue
+Owner: Matt Waite
+Height: 6'1"
+Weight: 190 lbs
+--
+License Plate L337OI9
+Make: Jaguar
+Color: Blue
+Owner: Brian Boyer
+Height: 6'6"
+Weight: 201 lbs
+--
+License Plate L337X19
+Make: Fiat
+Color: Blue
+Owner: Al Shaw
+Height: 6'5"
+Weight: 240 lbs
+--
+License Plate L337539
+Make: Honda
+Color: Blue
+Owner: Aron Pilhofer
+Height: 5'3"
+Weight: 198 lbs
+--
+License Plate L3373U9
+Make: Ford
+Color: Blue
+Owner: Miranda Mulligan
+Height: 6'6"
+Weight: 156 lbs
+--
+License Plate L337369
+Make: Honda
+Color: Blue
+Owner: Heather Billings
+Height: 5'2"
+Weight: 244 lbs
+--
+License Plate L337DV9
+Make: Honda
+Color: Blue
+Owner: Joe Germuska
+Height: 6'2"
+Weight: 164 lbs
+--
+License Plate L3375A9
+Make: Honda
+Color: Blue
+Owner: Jeremy Bowers
+Height: 6'1"
+Weight: 204 lbs
+--
+License Plate L337WR9
+Make: Honda
+Color: Blue
+Owner: Jacqui Maher
+Height: 6'2"
+Weight: 130 lbs
+
+## Manually identify L337..9, Honda, Blue, 6ft tall:
+Owner: Erika Owens
+Owner: Joe Germuska
+Owner: Jeremy Bowers
+Owner: Jacqui Maher
+
+% ack Erika people
+Erika Owens F 56  Trapelo Street, line 98
+
+% catline streets/Trapelo_Street 98
+SEE INTERVIEW #5455315
+
+% cat interviews/interview-5455315
+Owens has an alibi for the morning in question, she was in Toronto for the Mozilla All Hands Meeting.  Multiple sources, including a person in a fox costume, corroborate this.  Not a suspect.
+
+% ack Germuska people
+Joe Germuska  M 65  Plainfield Street, line 275
+
+% catline streets/Plainfield_Street 275
+SEE INTERVIEW #29741223
+
+% cat interviews/interview-29741223
+Should not be considered a suspect, has no SkyMiles membership and has never been a member of the Museum of Bash History.
+
+% ack Bowers people
+Jeremy Bowers M 34  Dunstable Road, line 284
+
+% catline streets/Dunstable_Road 284
+SEE INTERVIEW #9620713
+
+% cat interviews/interview-9620713
+Home appears to be empty, no answer at the door.
+
+After questioning neighbors, appears that the occupant may have left for a trip recently.
+
+Considered a suspect until proven otherwise, but would have to eliminate other suspects to confirm.
+
+% ack Jacqui people
+Jacqui Maher  F 40  Andover Road, line 224
+
+% catline streets/Andover_Road 224
+SEE INTERVIEW #904020
+
+% cat interviews/interview-904020
+Maher is not considered a suspect.  Video evidence confirms that she was away at a professional soccer game on the morning in question, even though it was a workday.
+
+% ack Bowers memberships
+memberships/AAA
+336:Jeremy Bowers
+
+memberships/Delta_SkyMiles
+1153:Jeremy Bowers
+
+memberships/Museum_of_Bash_History
+187:Jeremy Bowers
+
+memberships/Terminal_City_Library
+531:Jeremy Bowers
+
+## Jeremy Bowers matches license plate, physical description, memberships.
+
+%cd ..
+% echo "Jeremy Bowers" | $(command -v md5 || command -v md5sum) | grep -qf /dev/stdin solution && echo CORRECT\! GREAT WORK, GUMSHOE. || echo SORRY, TRY AGAIN.
+CORRECT! GREAT WORK, GUMSHOE.
